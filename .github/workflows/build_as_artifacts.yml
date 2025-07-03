@@ -43,10 +43,10 @@ jobs:
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v2
         with:
-          subject-path: _build/default/main.exe
+          subject-path: _build/default/bin/main.exe
 
       - name: Upload the build artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os }}-${{ matrix.ocaml-compiler }}-main.exe
-          path: _build/default/main.exe
+          path: _build/default/bin/main.exe
