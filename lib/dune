@@ -1,2 +1,3 @@
 (library
- (name ocaml_photo_modifier))
+ (name photo_modifier)
+ (libraries camlimages.core camlimages.jpeg unix))

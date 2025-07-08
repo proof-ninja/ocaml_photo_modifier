@@ -1,4 +1,4 @@
 (executable
- (public_name ocaml_photo_modifier)
+ (public_name photo_modifier)
  (name main)
- (libraries ocaml_photo_modifier))
+ (libraries photo_modifier ))
