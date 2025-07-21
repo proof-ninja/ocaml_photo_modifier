@@ -9,6 +9,7 @@ let load filename =
   try Some (Jpeg.load filename opts) with
   | e ->
      print_endline (!%"load_jpeg error: %s" (Printexc.to_string e));
+     Printexc.print_backtrace stdout;
      None
 
 let _3MB = 3 * 1024 * 1024
