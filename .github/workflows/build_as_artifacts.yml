@@ -6,6 +6,9 @@ on:
 
 permissions: read-all
 
+env:
+  OCAMLRUNPARAM: "b"
+
 jobs:
   build-and-test:
     permissions:
@@ -21,7 +24,6 @@ jobs:
           - windows-latest
         ocaml-compiler:
           - 5
-          - 4
         exclude:
           - os: macos-latest
             ocaml-compiler: 4
@@ -53,3 +55,6 @@ jobs:
         with:
           name: ${{ matrix.os }}-${{ matrix.ocaml-compiler }}-main.exe
           path: _build/default/bin/main.exe
+
+      - name: Run Example
+        run: cd sample && echo "hoge" | ../_build/default/bin/main.exe
