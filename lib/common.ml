@@ -13,3 +13,5 @@ let filesize filename =
   let open Unix in
   let stat = Unix.stat filename in
   stat.st_size
+
+  (* hoge *)
