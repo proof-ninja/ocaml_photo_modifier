@@ -8,6 +8,8 @@ let load filename =
   in
   try Some (Jpeg.load filename opts) with
   | e ->
+     print_endline (Sys.getcwd ());
+     print_endline (read_current_dir () |> String.concat "\n");
      print_endline (!%"load_jpeg error: %s" (Printexc.to_string e));
      Printexc.print_backtrace stdout;
      None
