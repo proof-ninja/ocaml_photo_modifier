@@ -24,15 +24,15 @@ jobs:
           - windows-latest
         ocaml-compiler:
           - 5
-          - 4
+          # - 4
         exclude:
           - os: ubuntu-latest
              # https://gitlab.com/camlspotter/camlimages/-/issues/6
             ocaml-compiler: 5
-          - os: macos-latest
-            ocaml-compiler: 4
-          - os: windows-latest
-            ocaml-compiler: 4
+          # - os: macos-latest
+          #   ocaml-compiler: 4
+          # - os: windows-latest
+          #   ocaml-compiler: 4
 
     runs-on: ${{ matrix.os }}
 
