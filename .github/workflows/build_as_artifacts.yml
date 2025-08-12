@@ -36,7 +36,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libjpeg-dev
+          sudo apt-get install -y libpng12-dev libjpeg-dev libtiff-dev libxpm-dev libfreetype6-dev libgif-dev
 
       - name: Checkout tree
         uses: actions/checkout@v4
