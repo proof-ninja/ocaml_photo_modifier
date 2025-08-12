@@ -26,10 +26,13 @@ jobs:
           - 5
           - 4
         exclude:
+          - os: ubuntu-latest
+             # https://gitlab.com/camlspotter/camlimages/-/issues/6
+            ocaml-compiler: 5
           - os: macos-latest
             ocaml-compiler: 4
-          - os: ubuntu-latest
-            ocaml-compiler: 5 # https://gitlab.com/camlspotter/camlimages/-/issues/6
+          - os: windows-latest
+            ocaml-compiler: 4
 
     runs-on: ${{ matrix.os }}
 
@@ -43,14 +46,14 @@ jobs:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
 
       # Ubuntuの場合のみ実行
-      - name: Run apt-get update
+      - name: Install libjpeg on Ubuntu
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
           sudo apt-get install -y libjpeg-dev
       
       # Windowsの場合のみ実行
-      - name: Run cygwin additonal packages
+      - name: Install libjeng on Windows
         if: matrix.os == 'windows-latest'
         run: |
           C:\cygwin\cygwinsetup.exe -qgnNdO -R C:/cygwin -l C:/cygwin/package -s http://mirrors.kernel.org/sourceware/cygwin/ -P libjpeg-devel
