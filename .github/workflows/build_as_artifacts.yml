@@ -29,7 +29,7 @@ jobs:
           - os: macos-latest
             ocaml-compiler: 4
           - os: ubuntu-latest
-            ocaml-compiler: 5
+            ocaml-compiler: 5 # https://gitlab.com/camlspotter/camlimages/-/issues/6
 
     runs-on: ${{ matrix.os }}
 
