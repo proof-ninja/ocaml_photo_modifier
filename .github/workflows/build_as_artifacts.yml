@@ -28,6 +28,8 @@ jobs:
         exclude:
           - os: macos-latest
             ocaml-compiler: 4
+          - os: ubuntu-latest
+            ocaml-compiler: 5
 
     runs-on: ${{ matrix.os }}
 
@@ -38,6 +40,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libjpeg-dev
+      
+      # Windowsの場合のみ実行
+      - name: Run cygwin additonal packages
+        if: matrix.os == 'windows-latest'
+        run: |
+          C:\tools\cygwin\cygwinsetup.exe -qgnNdO -R C:/tools/cygwin -l C:/tools/cygwin/package -s http://mirrors.kernel.org/sourceware/cygwin/ -P libjpeg-devel
 
       - name: Checkout tree
         uses: actions/checkout@v4
