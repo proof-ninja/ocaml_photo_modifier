@@ -34,6 +34,14 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+      - name: Checkout tree
+        uses: actions/checkout@v4
+
+      - name: Set-up OCaml
+        uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
+
       # Ubuntuの場合のみ実行
       - name: Run apt-get update
         if: matrix.os == 'ubuntu-latest'
@@ -45,15 +53,7 @@ jobs:
       - name: Run cygwin additonal packages
         if: matrix.os == 'windows-latest'
         run: |
-          C:\tools\cygwin\cygwinsetup.exe -qgnNdO -R C:/tools/cygwin -l C:/tools/cygwin/package -s http://mirrors.kernel.org/sourceware/cygwin/ -P libjpeg-devel
-
-      - name: Checkout tree
-        uses: actions/checkout@v4
-
-      - name: Set-up OCaml
-        uses: ocaml/setup-ocaml@v3
-        with:
-          ocaml-compiler: ${{ matrix.ocaml-compiler }}
+          C:\cygwin\cygwinsetup.exe -qgnNdO -R C:/cygwin -l C:/cygwin/package -s http://mirrors.kernel.org/sourceware/cygwin/ -P libjpeg-devel
 
       - run: opam install . --deps-only --with-test
 
