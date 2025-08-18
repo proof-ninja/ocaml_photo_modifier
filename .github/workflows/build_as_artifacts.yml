@@ -23,16 +23,8 @@ jobs:
           - macos-latest
           - windows-latest
         ocaml-compiler:
-          - 5
-          - 4
-        exclude:
-          - os: ubuntu-latest
-             # https://gitlab.com/camlspotter/camlimages/-/issues/6
-            ocaml-compiler: 5
-          - os: macos-latest
-            ocaml-compiler: 4
-          - os: windows-latest
-            ocaml-compiler: 4
+          # https://gitlab.com/camlspotter/camlimages/-/issues/6
+          - 5.2
 
     runs-on: ${{ matrix.os }}
 
@@ -56,7 +48,7 @@ jobs:
       - name: Install libjeng on Windows
         if: matrix.os == 'windows-latest'
         run: |
-          C:\cygwin\cygwinsetup.exe -qgnNdO -R C:/cygwin -l C:/cygwin/package -s http://mirrors.kernel.org/sourceware/cygwin/ -P libjpeg-devel
+          D:\setup-x86_64.exe --quiet-mode --symlink-type=sys --upgrade-also --local-package-dir=D:\cygwin\packages --packages=libjpeg-devel --root=D:\cygwin --site=https://mirrors.kernel.org/sourceware/cygwin/
 
       - run: opam install . --deps-only --with-test
 
