@@ -1,7 +1,7 @@
 name: Build as Artifacts
 
 on:
-  - push
+  # - push
   - pull_request
 
 permissions: read-all
@@ -19,14 +19,14 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - macos-latest
+          # - macos-latest
           - windows-latest
         ocaml-compiler:
           - 5
-        include:
-          # https://gitlab.com/camlspotter/camlimages/-/issues/6
-          - os: ubuntu-latest
-            ocaml-compiler: 4
+        # include:
+        #   # https://gitlab.com/camlspotter/camlimages/-/issues/6
+        #   - os: ubuntu-latest
+        #     ocaml-compiler: 4
 
     runs-on: ${{ matrix.os }}
 
@@ -50,7 +50,7 @@ jobs:
       - name: Install libjeng on Windows
         if: matrix.os == 'windows-latest'
         run: |
-          D:\cygwin\setup-x86_64.exe --quiet-mode --symlink-type=sys --upgrade-also --local-package-dir=D:\cygwin\packages --packages=libjpeg-devel --root=D:\cygwin --site=https://mirrors.kernel.org/sourceware/cygwin/
+          D:\cygwin\setup-x86_64.exe --quiet-mode --symlink-type=sys --upgrade-also --local-package-dir=D:\cygwin\packages --packages=libjpeg-turbo --root=D:\cygwin --site=https://mirrors.kernel.org/sourceware/cygwin/
 
       - run: opam install . --deps-only --with-test
 
