@@ -19,12 +19,14 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - ubuntu-latest
           - macos-latest
           - windows-latest
         ocaml-compiler:
+          - 5
+        include:
           # https://gitlab.com/camlspotter/camlimages/-/issues/6
-          - 5.1
+          - os: ubuntu-latest
+            ocaml-compiler: 4
 
     runs-on: ${{ matrix.os }}
 
