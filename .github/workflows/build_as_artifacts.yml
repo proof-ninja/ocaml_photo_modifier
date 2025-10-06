@@ -52,16 +52,32 @@ jobs:
 
       - run: opam exec -- dune runtest
 
+      - name: Prepare distribution directory
+        if: runner.os == 'Linux'
+        run: |
+          mkdir -p dist/ocaml_photo_modifier
+          cp _build/default/bin/main.exe dist/ocaml_photo_modifier/
+          cp scripts/run.sh dist/ocaml_photo_modifier/
+          cp scripts/run.bat dist/ocaml_photo_modifier/
+
+      - name: Create zip archive
+        if: runner.os == 'Linux'
+        run: |
+          cd dist
+          zip -r ocaml_photo_modifier.zip ocaml_photo_modifier
+
       - name: Generate artifact attestation
+        if: runner.os == 'Linux'
         uses: actions/attest-build-provenance@v2
         with:
-          subject-path: _build/default/bin/main.exe
+          subject-path: dist/ocaml_photo_modifier.zip
 
       - name: Upload the build artifact
+        if: runner.os == 'Linux'
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.os }}-${{ matrix.ocaml-compiler }}-main.exe
-          path: _build/default/bin/main.exe
+          name: ocaml_photo_modifier-${{ matrix.ocaml-compiler }}.zip
+          path: dist/ocaml_photo_modifier.zip
 
       - name: Run Example
         run: cd sample && echo "hoge" | ../_build/default/bin/main.exe
