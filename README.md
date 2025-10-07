@@ -13,9 +13,7 @@ https://learn.microsoft.com/ja-jp/windows/wsl/install
 
 ### ファイルの準備
 
-TODO:
-GitHub の Release ページにビルド成果物と scripts/ 以下のファイルをまとめ、 zip 圧縮してダウンロードできるようにする。
-以下のようなファイルが出てくるはず。
+GitHub Actions の成果物として以下のような内容の zip ファイルがダウンロードできるので、取得する。
 
 ```
 ocaml_photo_modifier/
