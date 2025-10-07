@@ -60,24 +60,18 @@ jobs:
           cp scripts/run.sh dist/ocaml_photo_modifier/
           cp scripts/run.bat dist/ocaml_photo_modifier/
 
-      - name: Create zip archive
-        if: runner.os == 'Linux'
-        run: |
-          cd dist
-          zip -r ocaml_photo_modifier.zip ocaml_photo_modifier
-
       - name: Generate artifact attestation
         if: runner.os == 'Linux'
         uses: actions/attest-build-provenance@v2
         with:
-          subject-path: dist/ocaml_photo_modifier.zip
+          subject-path: dist/ocaml_photo_modifier
 
       - name: Upload the build artifact
         if: runner.os == 'Linux'
         uses: actions/upload-artifact@v4
         with:
-          name: ocaml_photo_modifier-${{ matrix.ocaml-compiler }}.zip
-          path: dist/ocaml_photo_modifier.zip
+          name: ocaml_photo_modifier-${{ matrix.ocaml-compiler }}
+          path: dist/ocaml_photo_modifier
 
       - name: Run Example
         run: cd sample && echo "hoge" | ../_build/default/bin/main.exe
