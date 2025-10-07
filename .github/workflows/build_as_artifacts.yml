@@ -52,16 +52,27 @@ jobs:
 
       - run: opam exec -- dune runtest
 
+      # Ubuntu の場合のみ成果物をアップロード
+      - name: Prepare distribution directory
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          mkdir -p dist/ocaml_photo_modifier
+          cp _build/default/bin/main.exe dist/ocaml_photo_modifier/
+          cp scripts/run.sh dist/ocaml_photo_modifier/
+          cp scripts/run.bat dist/ocaml_photo_modifier/
+
       - name: Generate artifact attestation
+        if: matrix.os == 'ubuntu-latest'
         uses: actions/attest-build-provenance@v2
         with:
-          subject-path: _build/default/bin/main.exe
+          subject-path: dist/ocaml_photo_modifier
 
       - name: Upload the build artifact
+        if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.os }}-${{ matrix.ocaml-compiler }}-main.exe
-          path: _build/default/bin/main.exe
+          name: ocaml_photo_modifier-${{ matrix.ocaml-compiler }}
+          path: dist/ocaml_photo_modifier
 
       - name: Run Example
         run: cd sample && echo "hoge" | ../_build/default/bin/main.exe
